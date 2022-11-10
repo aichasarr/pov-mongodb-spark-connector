@@ -15,7 +15,7 @@ __Time to execute__:   <br/>
 This proof showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark. We will load financial transactions data into MongoDB, write and read from collections then compute an aggregation pipeline running *$lookup* query with *$search* to find customers from the customers collections whose accounts have purchased both *CurrencyService* and *InvestmentStock* products in the accounts collection.
 
 This repository has two components:
-- Docker folder which contains the docker file that to spin up the environment
+- Docker folder which contains the docker compose file that to spin up the environment
 - Pyspark folder which contains the scripts to execute into JupyterLab
 <!--
 - Data folder which contains the data and command to execute to upload the data into an Atlas database
@@ -49,14 +49,29 @@ __2. Configure Atlas Environment__
 
 * Once the cluster has been fully provisioned, in the Atlas console, click the ... (ellipsis) for the cluster, select Load Sample Dataset. In the modal dialog, confirm that you want to load the sample dataset by choosing Load Sample Dataset
 
-*In the Atlas console, once the dataset has fully loaded, click the Collections button for the cluster, and navigate to the sample_analytics.accounts collection. Under the Search tab, choose to Create Search Index 
+* In the Atlas console, once the dataset has fully loaded, click the Collections button for the cluster, and navigate to the sample_analytics.accounts collection. Under the Search tab, choose to Create Search Index 
 
+![Image of creating a search index](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/createsearchindex1.png)
+
+* To select the account collection as a data source, type analytics in the text box or click sample_analytics as shown below
+
+![Image of creating a search index](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/createsearchindex2.png)
+
+* Keep all of the default options and select Create Index
+
+* The default index structure can be edited as shown below
+
+![Image of creating a search index](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/createsearchindex3.png)
+
+* The index creation process should take approximately 4 minutes. 
+
+![Image of creating a search index](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/createsearchindex4.png)
 
 __. Getting the environment up and running__
 
-Execute the `run.sh` script file.  This runs the docker compose file which creates a three node MongoDB cluster, configures it as a replica set on prt 27017. Spark is also deployed in this environment with a master node located at port 8080 and two worker nodes listening on ports 8081 and 8082 respectively.  The MongoDB cluster will be used for both reading data into Spark and writing data from Spark back into MongoDB.
+Execute the `run.sh` script file.  This runs the docker compose file which deploy a Spark environmentwith a master node located at port 8080 and two worker nodes listening on ports 8081 and 8082 respectively. The Atlas cluster will be used for both reading data into Spark and writing data from Spark back into Atlas.
 
-Note: You may have to mark the .SH file as runnable with the `chmod` command i.e. `chmod +x run.sh`
+Note: You may have to mark the .sh file as runnable with the `chmod` command i.e. `chmod +x run.sh`
 
 **If you are using Windows, launch a PowerShell command window and run the `run.ps1` script instead of run.sh.**
 
@@ -64,7 +79,7 @@ To verify our Spark master and works are online navigate to http://localhost:808
 
 The Jupyter notebook URL which includes its access token will be listed at the end of the script.  NOTE: This token will be generated when you run the docker image so it will be different for you.  Here is what it looks like:
 
-![Image of url with token](https://github.com/RWaltersMA/mongo-spark-jupyter/blob/master/images/url.png)
+![Image of url with token](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/url.png)
 
 If you launch the containers outside of the script, you can still get the URL by issuing the following command:
 
@@ -79,7 +94,7 @@ or
 
 To use MongoDB data with Spark create a new Python Jupyter notebook by navigating to the Jupyter URL and under notebook select Python 3 :
 
-![Image of New Python notebook](https://github.com/RWaltersMA/mongo-spark-jupyter/blob/master/images/newpythonnotebook.png)
+![Image of New Python notebook](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/newpythonnotebook.png)
 
 Now you can run through the following demo script.  You can copy and execute one or more of these lines :
 
