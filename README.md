@@ -128,8 +128,7 @@ spark = SparkSession.\
         config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.4").\
         getOrCreate()
 ```
-
-![PySpark1](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark1.png
+![Image of PySpark1](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark1.png)
 
 * Next, load a dataframes from transactions collection
 
@@ -137,22 +136,26 @@ spark = SparkSession.\
 df_transactions = spark.read.format("mongodb").option('database', 'sample_analytics').option('collection', 'transactions').load()
 df_transactions.show()
 ```
-![PySpark2](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark2.png
 
-Let’s verify the data was loaded by looking at the schema:
+![Image of PySpark2](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark2.png)
+
+* Let’s verify the data was loaded by looking at the schema:
 
 ```
 df_transactions.printSchema()
 ```
-![PySpark3](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark3.png
+
+![Image of PySpark3](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark3.png)
 
 * We can now write data into accounts collection by creating account in a dataframe and inserting into the collection
 
 ```
+
 new_account =  spark.createDataFrame([(999999, 99999, ['Derivatives', 'InvestmentStock', 'Brokerage', 'Commodity'])], ["account_id", "limit", "products"])
 new_account.write.format("mongodb").mode("append").option("database", "sample_analytics").option("collection", "accounts").save()
 ```
-![PySpark4](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark4.png
+
+![Image of PySpark4](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark4.png)
 
 * We can also use the power of the MongoDB Aggregation Framework to pre-filter, sort or aggregate our MongoDB data. 
 For a simple aggregation pipepile, let's retrieve accounts where account_id equals to 999999
@@ -162,18 +165,16 @@ pipeline1 = "[{'$match': {'account_id': 999999}}]"
 aggPipelineDF = spark.read.format("mongodb").option("database", "sample_analytics").option("collection", "accounts").option("aggregation.pipeline", pipeline1).load()
 aggPipelineDF.show()
 ```
-![PySpark5](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark5.png
+
+![Image of PySpark5](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark5.png)
 
 * Then lets find customers from the customers collections whose accounts have purchased both *CurrencyService* and *InvestmentStock* products in the accounts collection.
 
 The following query uses these stages:
 
-$lookup: join customers and accounts collections in the sample_analytics database based on the account ID of the customers and return the matching documents from the accounts collection in an array field named purchases.
-Use $search stage in the sub-pipeline to search for customer accounts that must have purchased both CurrencyService and InvestmentStock with preference for an order limit between 5000 to 10000.
-
-$limit: stage to limit the output to 5 results.
-
-$project: stage to exclude the specified fields in the results.
+- $lookup: join customers and accounts collections in the sample_analytics database based on the account ID of the customers and return the matching documents from the accounts collection in an array field named purchases.Use $search stage in the sub-pipeline to search for customer accounts that must have purchased both CurrencyService and InvestmentStock with preference for an order limit between 5000 to 10000.
+- $limit: stage to limit the output to 5 results.
+- $project: stage to exclude the specified fields in the results.
 
 ```
 pipeline2 = """[
@@ -230,7 +231,7 @@ aggPipelineDF = spark.read.format("mongodb").option("database", "sample_analytic
 aggPipelineDF.show()
 ```
 
-![PySpark6](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark6.png
+![Image of PySpark6](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark6.png)
 
 * Finally we can use SparkSQL to issue ANSI-compliant SQL against MongoDB data as follows:
 
@@ -241,8 +242,7 @@ sqlDF = spark.sql("SELECT * FROM acc WHERE acc.account_id=999999")
 sqlDF.show()
 ```
 
-![IPySpark7](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark7.png
-
+![Image of PySpark7](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark7.png)
 
 ---
 ## Measurement
