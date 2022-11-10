@@ -81,24 +81,22 @@ To verify our Spark master and works are online navigate to http://localhost:808
 
 ![Image of spark cluster](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/sparkcluster.png)
 
-The Jupyter notebook URL which includes its access token will be listed at the end of the script.  NOTE: This token will be generated when you run the docker image so it will be different for you.  Here is what it looks like:
+The Jupyter notebook URL which includes its access token will be listed at the end of the script.
+NOTE: This token will be generated when you run the docker image so it will be different for you. You will need to replace the characters generated after http:// with 127.0.0.1.  Here is what it looks like:
+http://127.0.0.1:8888/?token=b6ee384b17eb11ad3cabf133aaa052aa2512c6b89c583502
 
 ![Image of url with token](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/url_jupyterlab.png)
 
 If you launch the containers outside of the script, you can still get the URL by issuing the following command:
 
-`docker exec -it jupyterlab  /opt/conda/bin/jupyter notebook list`
-
-or
-
 `docker exec -it jupyterlab  /opt/conda/bin/jupyter server list`
+
+To use MongoDB data with Spark, create a new Python Jupyter notebook by navigating to the Jupyter URL and under notebook select Python3:
+
+![Image of New Python notebook](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/newpythonnotebook.png)
 
 ---
 ## Execution
-
-To use MongoDB data with Spark create a new Python Jupyter notebook by navigating to the Jupyter URL and under notebook select Python3:
-
-![Image of New Python notebook](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/newpythonnotebook.png)
 
 Now you can run through the following demo script.  You can copy and execute one or more of these lines :
 
