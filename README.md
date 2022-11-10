@@ -36,6 +36,7 @@ The database *sample_analytics* made available is provided with the Atlas sample
 __1. Configure Laptop__
 
 * Ensure Docker is installed. Here is a [link to the download](https://docs.docker.com/desktop/) page. 
+We will use version 10.0 of the Spark Connector which is compatible with Spark version 3.1 or later and MongoDB version 4.0 or later.
 
 __2. Configure Atlas Environment__ 
 
@@ -91,7 +92,7 @@ or
 
 `docker exec -it jupyterlab  /opt/conda/bin/jupyter server list`
 
-
+---
 ## Execution
 
 To use MongoDB data with Spark create a new Python Jupyter notebook by navigating to the Jupyter URL and under notebook select Python3:
@@ -159,24 +160,11 @@ sqlDF=spark.sql("SELECT * FROM avgs WHERE movingAverage > 43.0")
 sqlDF.show()
 ```
 
+---
+## Measurement
+
 In this repository we created a JupyterLab notebook, leaded MongoDB data, computed a moving average and updated the collection with the new data.  This simple example shows how easy it is to integrate MongoDB data within your Spark data science application.  For more information on the Spark Connector check out the [online documentation](https://docs.mongodb.com/spark-connector/master/).  For anyone looking for answers to questions feel free to ask them in the [MongoDB community pages](https://developer.mongodb.com/community/forums/c/connectors-integrations/48).  The MongoDB Connector for Spark is [open source](https://github.com/mongodb/mongo-spark) under the Apache license.  Comments/pull requests are encouraged and welcomed.  Happy data exploration!
 
 
-# Data Generator (optional)
 
-This repository comes with a small sample data set already so it is not necessary to use this tool, however, if you are interested in creating a larger dataset with the same type of financial security data you run the Python3 app within the DataGenerator directory.
-
-`python3 create-stock-data.py`
-
-Parameter | Description
---------- | ------------
--s | number of financial stock symbols to generate, default is 10
--c | MongoDB Connection String, default is mongodb://localhost
--d | MongoDB Database name default is Stocks
--w | MongoDB collection to write to default is Source
--r | MongoDB collection to read from default is Sink
-
-This data generator tool is designed to write to one collection and read from another.  It is also used as part of a Kafka connector demo where the data is flowing through the Kafka system.  In our repository example, if you just want to see the data as it is written to the "Source" collection use the -r parameter as follows:
-
-`python3 create-stock-data.py -r Source`
 
