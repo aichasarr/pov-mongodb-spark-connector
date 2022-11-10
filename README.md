@@ -82,7 +82,8 @@ To verify our Spark master and works are online navigate to http://localhost:808
 ![Image of spark cluster](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/sparkcluster.png)
 
 The Jupyter notebook URL which includes its access token will be listed at the end of the script.
-NOTE: This token will be generated when you run the docker image so it will be different for you. You will need to replace the characters generated after http:// with 127.0.0.1.  Here is what it looks like:
+NOTE: This token will be generated when you run the docker image so it will be different for you. You will need to replace the characters generated after http:// with 127.0.0.1.  
+Here is what it looks like:
 http://127.0.0.1:8888/?token=b6ee384b17eb11ad3cabf133aaa052aa2512c6b89c583502
 
 ![Image of url with token](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/url_jupyterlab.png)
@@ -98,64 +99,134 @@ To use MongoDB data with Spark, create a new Python Jupyter notebook by navigati
 ---
 ## Execution
 
-Now you can run through the following demo script.  You can copy and execute one or more of these lines :
+Now You can run through the following demo script.  You can copy and execute one or more of these lines :
 
-To start, this will create the SparkSession and set the environment to use our local MongoDB cluster.
+* To start, you will create the SparkSession and set the environment to use our Atlas cluster. 
+
+In the Atlas console, for the database cluster you deployed, click the Connect button, select Connect your application, choose Python Driver and copy the Connection String.
+
+In the SparkSession variable, for the read and write config parameters, paste the connection string you just copied and fill in the password field.
+
+To use the Spark Connector, we will use the Maven dependency and set the config parameter to this: 
+`config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.5")`
+You can also download the connector and add it Jupyterlab. If you want to use this way, you will need to update the config parameter to this: 
+`config("spark.jars", "link_to_the_connector")`
+
 
 ```
 from pyspark.sql import SparkSession
 
 spark = SparkSession.\
         builder.\
-        appName("pyspark-notebook2").\
+        appName("pyspark-notebook").\
         config("spark.executor.memory", "1g").\
         config("spark.mongodb.read.connection.uri","mongodb+srv://appuser:mongo1234@cluster0.3paoz.mongodb.net/?retryWrites=true&w=majority").\
         config("spark.mongodb.write.connection.uri","mongodb+srv://appuser:mongo1234@cluster0.3paoz.mongodb.net/?retryWrites=true&w=majority").\
         config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.4").\
         getOrCreate()
 ```
-Next load the dataframes from MongoDB
+
+* Next, load the dataframes from transactions collection
+
 ```
-df = spark.read.format("mongo").load()
+df_transactions = spark.read.format("mongodb").option('database', 'sample_analytics').option('collection', 'transactions').load()
+df_transactions.show()
 ```
+
 Let’s verify the data was loaded by looking at the schema:
-```
-df.printSchema()
-```
-We can see that the tx_time field is loaded as a string.  We can easily convert this to a time by issuing a cast statement:
-
-`df = df.withColumn(‘tx_time”, df.tx_time.cast(‘timestamp’))`
-
-Next, we can add a new ‘movingAverage’ column that will show a moving average based upon the previous value in the dataset.  To do this we leverage the PySpark Window function as follows:
-
-```from pyspark.sql.window import Window
-from pyspark.sql import functions as F
-
-movAvg = df.withColumn("movingAverage", F.avg("price")
-             .over( Window.partitionBy("company_symbol").rowsBetween(-1,1)) )
-```
-To see our data with the new moving average column we can issue a 
-movAvg.show().
-
-`movAvg.show()`
-
-To update the data in our MongoDB cluster, we  use the save method.
-
-`movAvg.write.format("mongo").option("replaceDocument", "true").mode("append").save()`
-
-We can also use the power of the MongoDB Aggregation Framework to pre-filter, sort or aggregate our MongoDB data.
 
 ```
-pipeline = "[{'$group': {_id:'$company_name', 'maxprice': {$max:'$price'}}},{$sort:{'maxprice':-1}}]"
-aggPipelineDF = spark.read.format("mongo").option("pipeline", pipeline).option("partitioner", "MongoSinglePartitioner").load()
+df_transactions.printSchema()
+```
+
+* We can now write data into accounts collection by creating account in a dataframe and inserting into the collection
+
+```
+new_account =  spark.createDataFrame([(999999, 99999, ['Derivatives', 'InvestmentStock', 'Brokerage', 'Commodity'])], ["account_id", "limit", "products"])
+new_account.write.format("mongodb").mode("append").option("database", "sample_analytics").option("collection", "accounts").save()
+```
+
+* We can also use the power of the MongoDB Aggregation Framework to pre-filter, sort or aggregate our MongoDB data. 
+For a simple aggregation pipepile, let's retrieve accounts where account_id equals to 999999
+
+```
+pipeline1 = "[{'$match': {'account_id': 999999}}]"
+aggPipelineDF = spark.read.format("mongodb").option("database", "sample_analytics").option("collection", "accounts").option("aggregation.pipeline", pipeline1).load()
 aggPipelineDF.show()
 ```
 
-Finally we can use SparkSQL to issue ANSI-compliant SQL against MongoDB data as follows:
+* Then lets find customers from the customers collections whose accounts have purchased both *CurrencyService* and *InvestmentStock* products in the accounts collection.
+
+The following query uses these stages:
+
+$lookup: join customers and accounts collections in the sample_analytics database based on the account ID of the customers and return the matching documents from the accounts collection in an array field named purchases.
+Use $search stage in the sub-pipeline to search for customer accounts that must have purchased both CurrencyService and InvestmentStock with preference for an order limit between 5000 to 10000.
+
+$limit: stage to limit the output to 5 results.
+
+$project: stage to exclude the specified fields in the results.
 
 ```
-movAvg.createOrReplaceTempView("avgs")
-sqlDF=spark.sql("SELECT * FROM avgs WHERE movingAverage > 43.0")
+pipeline2 = """[
+    {
+        '$lookup': {
+            'from': 'accounts', 
+            'localField': 'accounts', 
+            'foreignField': 'account_id', 
+            'as': 'purchases', 
+            'pipeline': [
+                {
+                    '$search': {
+                        'compound': {
+                            'must': [
+                                {
+                                    'queryString': {
+                                        'defaultPath': 'products', 
+                                        'query': 'products: (CurrencyService AND InvestmentStock)'
+                                    }
+                                }
+                            ], 
+                            'should': [
+                                {
+                                    'range': {
+                                        'path': 'limit', 
+                                        'gte': 5000, 
+                                        'lte': 10000
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }, {
+                    '$project': {
+                        '_id': 0
+                    }
+                }
+            ]
+        }
+    }, {
+        '$limit': 5
+    }, {
+        '$project': {
+            '_id': 0, 
+            'address': 0, 
+            'birthdate': 0, 
+            'username': 0, 
+            'tier_and_details': 0
+        }
+    }
+]"""
+
+aggPipelineDF = spark.read.format("mongodb").option("database", "sample_analytics").option("collection", "accounts").option("aggregation.pipeline", pipeline2).load()
+aggPipelineDF.show()
+```
+
+* Finally we can use SparkSQL to issue ANSI-compliant SQL against MongoDB data as follows:
+
+```
+df_accounts = spark.read.format("mongodb").option('database', 'sample_analytics').option('collection', 'accounts').load()
+df_accounts.createOrReplaceTempView("acc")
+sqlDF = spark.sql("SELECT * FROM acc WHERE acc.account_id=999999")
 sqlDF.show()
 ```
 
