@@ -90,9 +90,9 @@ or
 `docker exec -it jupyterlab  /opt/conda/bin/jupyter server list`
 
 
-## Playing with MongoDB data in a Jupyter notebook
+## Execution
 
-To use MongoDB data with Spark create a new Python Jupyter notebook by navigating to the Jupyter URL and under notebook select Python 3 :
+To use MongoDB data with Spark create a new Python Jupyter notebook by navigating to the Jupyter URL and under notebook select Python3:
 
 ![Image of New Python notebook](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/newpythonnotebook.png)
 
