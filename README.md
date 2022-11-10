@@ -15,8 +15,8 @@ __Time to execute__:   <br/>
 This proof showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark. We will load financial transactions data into MongoDB, write and read from collections then compute an aggregation pipeline running *$lookup* query with *$search* to find customers from the customers collections whose accounts have purchased both *CurrencyService* and *InvestmentStock* products in the accounts collection.
 
 This repository has two components:
-- Docker folder which contains the docker compose file that to spin up the environment
-- Pyspark folder which contains the scripts to execute into JupyterLab
+- Docker compose file which contains the docker compose file that to spin up the environment
+- Pyspark file which contains the scripts to execute into JupyterLab
 <!--
 - Data folder which contains the data and command to execute to upload the data into an Atlas database
 -->
@@ -70,7 +70,8 @@ __2. Configure Atlas Environment__
 
 __. Getting the environment up and running__
 
-Execute the `run.sh` script file.  This runs the docker compose file which deploy a Spark environmentwith a master node located at port 8080 and two worker nodes listening on ports 8081 and 8082 respectively. The Atlas cluster will be used for both reading data into Spark and writing data from Spark back into Atlas.
+Execute the `run.sh` script file, docker daemon need to be running.
+This runs the docker compose file which deploy a Spark environment with a master node located at port 8080 and two worker nodes listening on ports 8081 and 8082 respectively. The Atlas cluster will be used for both reading data into Spark and writing data from Spark back into Atlas.
 
 Note: You may have to mark the .sh file as runnable with the `chmod` command i.e. `chmod +x run.sh`
 
@@ -82,7 +83,7 @@ To verify our Spark master and works are online navigate to http://localhost:808
 
 The Jupyter notebook URL which includes its access token will be listed at the end of the script.  NOTE: This token will be generated when you run the docker image so it will be different for you.  Here is what it looks like:
 
-![Image of url with token](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/url.png)
+![Image of url with token](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/url_jupyterlab.png)
 
 If you launch the containers outside of the script, you can still get the URL by issuing the following command:
 
