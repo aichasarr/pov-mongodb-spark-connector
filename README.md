@@ -108,8 +108,11 @@ In the Atlas console, for the database cluster you deployed, click the Connect b
 In the SparkSession variable, for the read and write config parameters, paste the connection string you just copied and fill in the password field.
 
 To use the Spark Connector, we will use the Maven dependency and set the config parameter to this: 
-`config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.5")`
+
+`config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.5")` 
+
 You can also download the connector and add it Jupyterlab. If you want to use this way, you will need to update the config parameter to this: 
+
 `config("spark.jars", "link_to_the_connector")`
 
 
@@ -126,18 +129,22 @@ spark = SparkSession.\
         getOrCreate()
 ```
 
-* Next, load the dataframes from transactions collection
+![Image of pyspark query 1](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark1.png
+
+* Next, load a dataframes from transactions collection
 
 ```
 df_transactions = spark.read.format("mongodb").option('database', 'sample_analytics').option('collection', 'transactions').load()
 df_transactions.show()
 ```
+![Image of pyspark query 2](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark2.png
 
 Let’s verify the data was loaded by looking at the schema:
 
 ```
 df_transactions.printSchema()
 ```
+![Image of pyspark query 3](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark3.png
 
 * We can now write data into accounts collection by creating account in a dataframe and inserting into the collection
 
@@ -145,6 +152,7 @@ df_transactions.printSchema()
 new_account =  spark.createDataFrame([(999999, 99999, ['Derivatives', 'InvestmentStock', 'Brokerage', 'Commodity'])], ["account_id", "limit", "products"])
 new_account.write.format("mongodb").mode("append").option("database", "sample_analytics").option("collection", "accounts").save()
 ```
+![Image of pyspark query 4](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark4.png
 
 * We can also use the power of the MongoDB Aggregation Framework to pre-filter, sort or aggregate our MongoDB data. 
 For a simple aggregation pipepile, let's retrieve accounts where account_id equals to 999999
@@ -154,6 +162,7 @@ pipeline1 = "[{'$match': {'account_id': 999999}}]"
 aggPipelineDF = spark.read.format("mongodb").option("database", "sample_analytics").option("collection", "accounts").option("aggregation.pipeline", pipeline1).load()
 aggPipelineDF.show()
 ```
+![Image of pyspark query 5](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark5.png
 
 * Then lets find customers from the customers collections whose accounts have purchased both *CurrencyService* and *InvestmentStock* products in the accounts collection.
 
@@ -221,6 +230,8 @@ aggPipelineDF = spark.read.format("mongodb").option("database", "sample_analytic
 aggPipelineDF.show()
 ```
 
+![Image of pyspark query 6](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark6.png
+
 * Finally we can use SparkSQL to issue ANSI-compliant SQL against MongoDB data as follows:
 
 ```
@@ -229,11 +240,21 @@ df_accounts.createOrReplaceTempView("acc")
 sqlDF = spark.sql("SELECT * FROM acc WHERE acc.account_id=999999")
 sqlDF.show()
 ```
+![Image of pyspark query 7](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark7.png
+
 
 ---
 ## Measurement
 
-In this repository we created a JupyterLab notebook, leaded MongoDB data, computed a moving average and updated the collection with the new data.  This simple example shows how easy it is to integrate MongoDB data within your Spark data science application.  For more information on the Spark Connector check out the [online documentation](https://docs.mongodb.com/spark-connector/master/).  For anyone looking for answers to questions feel free to ask them in the [MongoDB community pages](https://developer.mongodb.com/community/forums/c/connectors-integrations/48).  The MongoDB Connector for Spark is [open source](https://github.com/mongodb/mongo-spark) under the Apache license.  Comments/pull requests are encouraged and welcomed.  Happy data exploration!
+This proof should have demonstrated how to use the MongoDB Spark Connector and some capabilities :
+
+* Creation of a JupyterLab notebook and loading MongoDB data 
+* Update of the collection with the new data
+* Computation of an aggregation pipeline with $lookup and $search operators
+* Computation of SQL against MongoDB Data
+
+This simple example shows how easy it is to integrate MongoDB data within your Spark data science application.  For more information on the Spark Connector check out the [online documentation](https://docs.mongodb.com/spark-connector/master/). The MongoDB Connector for Spark is [open source](https://github.com/mongodb/mongo-spark) under the Apache license.  Comments/pull requests are encouraged and welcomed.
+Happy data exploration!
 
 
 
