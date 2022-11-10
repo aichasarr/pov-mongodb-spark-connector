@@ -1,14 +1,58 @@
-# Using MongoDB with Jupyter Labs
+# Spark Connector
 
-This repository showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark.  We will load financial security data from MongoDB, calculate a moving average then update the data in MongoDB with these new data.  This repository has two components:
-- Docker files
-- Data generator (optional, see end of this text)
+__Ability to integrate the database with Spark using a native Spark Connector provided by the database supplier.__
 
-The Docker files will spin up the following environment:
+The official MongoDB Connector for Apache Spark is developed and supported by MongoDB engineers. The Connector Makes data stored in MongoDB available to spark and gives you have access to all Spark libraries for use with MongoDB data. You can write and read data in MongoDB from Spark, even run aggregation pipelines.
 
-![Image of docker environment](https://github.com/RWaltersMA/mongo-spark-jupyter/blob/master/images/diagram.png)
+More on why MongoDB & Spark go hand-in-hand: [MongoDB Connector for Apache Spark](https://www.mongodb.com/products/spark-connector).
 
-## Getting the environment up and running
+__SA Maintainer__: [Aicha Sarr](mailto:aicha.sarr@mongodb.com) <br/>
+__Time to setup__:   <br/>
+__Time to execute__:   <br/>
+
+---
+## Description
+This proof showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark. We will load financial transactions data into MongoDB, write and read from collections then compute an aggregation pipeline running $lookup query with $search to find customers from the customers collections whose accounts have purchased both CurrencyService and InvestmentStock products in the accounts collection.
+
+This repository has two components:
+- Docker folder which contains the docker file that to spin up the environment
+- Pyspark folder which contains the scripts to execute into JupyterLab
+<!--
+- Data folder which contains the data and command to execute to upload the data into an Atlas database
+-->
+
+The Docker file will spin up the following environment:
+
+![Image of docker environment](https://github.com/aichasarr/pov-mongo-spark-jupyter/tree/master/images/diagram.png)
+
+The database *sample_analytics* made available is provided with the Atlas sample dataset and contains three collections for a typical financial services application:
+- accounts: contains details on customer accounts.
+- customers: contains details on customers including what accounts they hold.
+- transactions: contains contains transactions details for customers.
+
+
+----
+## Setup
+__1. Configure Laptop__
+
+* Ensure Docker is installed. Here is a [link to the download](https://docs.docker.com/desktop/) page. 
+
+__2. Configure Atlas Environment__ 
+
+* Log-on to your [Atlas account](http://cloud.mongodb.com/) (using the MongoDB SA preallocated Atlas credits system) and navigate to your SA project
+
+* In the project's Security tab, choose to add a new user called main_user, and for User Privileges specify Atlas admin (make a note of the password you specify)
+
+* Also in the Security tab, add a new IP Whitelist for your laptop's current IP address
+
+* Create an M10 based 3 node replica-set in an AWS region of your choice, running MongoDB version 6.0 (To run $lookup query with $search, your cluster must run MongoDB v6.0 or higher. It is available on all cluster sizes.)
+
+* Once the cluster has been fully provisioned, in the Atlas console, click the ... (ellipsis) for the cluster, select Load Sample Dataset. In the modal dialog, confirm that you want to load the sample dataset by choosing Load Sample Dataset
+
+*In the Atlas console, once the dataset has fully loaded, click the Collections button for the cluster, and navigate to the sample_analytics.accounts collection. Under the Search tab, choose to Create Search Index 
+
+
+__. Getting the environment up and running__
 
 Execute the `run.sh` script file.  This runs the docker compose file which creates a three node MongoDB cluster, configures it as a replica set on prt 27017. Spark is also deployed in this environment with a master node located at port 8080 and two worker nodes listening on ports 8081 and 8082 respectively.  The MongoDB cluster will be used for both reading data into Spark and writing data from Spark back into MongoDB.
 
