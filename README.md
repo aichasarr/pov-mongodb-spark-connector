@@ -1,4 +1,4 @@
-# Spark Connector
+# MoongoDB Spark Connector
 
 __Ability to integrate the database with Spark using a native Spark Connector provided by the database supplier.__
 
@@ -12,7 +12,7 @@ __Time to execute__:   <br/>
 
 ---
 ## Description
-This proof showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark. We will load financial transactions data into MongoDB, write and read from collections then compute an aggregation pipeline running $lookup query with $search to find customers from the customers collections whose accounts have purchased both CurrencyService and InvestmentStock products in the accounts collection.
+This proof showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark. We will load financial transactions data into MongoDB, write and read from collections then compute an aggregation pipeline running *$lookup* query with *$search* to find customers from the customers collections whose accounts have purchased both *CurrencyService* and *InvestmentStock* products in the accounts collection.
 
 This repository has two components:
 - Docker folder which contains the docker file that to spin up the environment
@@ -23,7 +23,7 @@ This repository has two components:
 
 The Docker file will spin up the following environment:
 
-![Image of docker environment](https://github.com/aichasarr/pov-mongo-spark-jupyter/tree/master/images/diagram.png)
+![Image of docker environment](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/diagram.png)
 
 The database *sample_analytics* made available is provided with the Atlas sample dataset and contains three collections for a typical financial services application:
 - accounts: contains details on customer accounts.
