@@ -7,8 +7,8 @@ The official MongoDB Connector for Apache Spark is developed and supported by Mo
 More on why MongoDB & Spark go hand-in-hand: [MongoDB Connector for Apache Spark](https://www.mongodb.com/products/spark-connector).
 
 __SA Maintainer__: [Aicha Sarr](mailto:aicha.sarr@mongodb.com) <br/>
-__Time to setup__:   <br/>
-__Time to execute__:   <br/>
+__Time to setup__: 60 mins <br/>
+__Time to execute__: 30 mins <br/>
 
 ---
 ## Description
@@ -36,7 +36,7 @@ The database *sample_analytics* made available is provided with the Atlas sample
 __1. Configure Laptop__
 
 * Ensure Docker is installed. Here is a [link to the download](https://docs.docker.com/desktop/) page. 
-We will use version 10.0 of the Spark Connector which is compatible with Spark version 3.1 or later and MongoDB version 4.0 or later.
+We will use version 10.0 of the Spark Connector which is compatible with Spark version 3.1 or later and MongoDB version 6.0 or later.
 
 __2. Configure Atlas Environment__ 
 
@@ -254,5 +254,4 @@ This proof should have demonstrated how to use the MongoDB Spark Connector and s
 * Computation of an aggregation pipeline with $lookup and $search operators
 * Computation of SQL against MongoDB Data
 
-This simple example shows how easy it is to integrate MongoDB data within your Spark data science application.  For more information on the Spark Connector check out the [online documentation](https://docs.mongodb.com/spark-connector/master/). The MongoDB Connector for Spark is [open source](https://github.com/mongodb/mongo-spark) under the Apache license.  Comments/pull requests are encouraged and welcomed.
-Happy data exploration!
+This simple example shows how easy it is to integrate MongoDB data within your Spark data science application.  For more information on the Spark Connector check out the [online documentation](https://docs.mongodb.com/spark-connector/master/). The MongoDB Connector for Spark is [open source](https://github.com/mongodb/mongo-spark) under the Apache license, comments/pull requests are encouraged and welcomed.
