@@ -113,7 +113,7 @@ To use the Spark Connector, we will use the Maven dependency and set the config 
 
 You can also download the connector and add it Jupyterlab. If you want to use this way, you will need to update the config parameter to this: 
 
-`config("spark.jars", "link_to_the_connector")`
+`config("spark.jars", "path_to_the_connector")`
 
 
 ```
