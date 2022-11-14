@@ -1,8 +1,8 @@
-# MoongoDB Spark Connector
+# MongoDB Spark Connector
 
 __Ability to integrate the database with Spark using a native Spark Connector provided by the database supplier.__
 
-The official MongoDB Connector for Apache Spark is developed and supported by MongoDB engineers. The Connector Makes data stored in MongoDB available to spark and gives you have access to all Spark libraries for use with MongoDB data. You can write and read data in MongoDB from Spark, even run aggregation pipelines.
+The official MongoDB Connector for Apache Spark is developed and supported by MongoDB engineers. The Connector Makes data stored in MongoDB available to Spark and gives you have access to all Spark libraries for use with MongoDB data. You can write and read data in MongoDB from Spark, even run aggregation pipelines.
 
 More on why MongoDB & Spark go hand-in-hand: [MongoDB Connector for Apache Spark](https://www.mongodb.com/products/spark-connector).
 
