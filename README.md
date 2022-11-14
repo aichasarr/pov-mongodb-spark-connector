@@ -125,7 +125,7 @@ spark = SparkSession.\
         config("spark.executor.memory", "1g").\
         config("spark.mongodb.read.connection.uri","mongodb+srv://[your_username]:[your_password]@[your_connection_string]").\
         config("spark.mongodb.write.connection.uri","mongodb+srv://[your_username]:[your_password]@[your_connection_string]").\
-        config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.4").\
+        config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.5").\
         getOrCreate()
 ```
 ![Image of PySpark1](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark1.png)
