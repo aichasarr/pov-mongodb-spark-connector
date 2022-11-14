@@ -4,8 +4,8 @@ spark = SparkSession.\
         builder.\
         appName("pyspark-notebook2").\
         config("spark.executor.memory", "1g").\
-        config("spark.mongodb.read.connection.uri","mongodb+srv://appuser:[your_password]@cluster0.3paoz.mongodb.net/?retryWrites=true&w=majority").\
-        config("spark.mongodb.write.connection.uri","mongodb+srv://appuser:[your_password]@cluster0.3paoz.mongodb.net/?retryWrites=true&w=majority").\
+        config("spark.mongodb.read.connection.uri","mongodb+srv://appuser:[your_password]@[your_connection_string]").\
+        config("spark.mongodb.write.connection.uri","mongodb+srv://appuser:[your_password]@[your_connection_string]").\
         config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.5").\
         getOrCreate()
 
