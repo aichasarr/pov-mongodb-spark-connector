@@ -82,7 +82,7 @@ To verify our Spark master and works are online navigate to http://localhost:808
 ![Image of spark cluster](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/sparkcluster.png)
 
 The Jupyter notebook URL which includes its access token will be listed at the end of the script.
-NOTE: This token will be generated when you run the docker image so it will be different for you. You will need to replace the characters generated after http:// with 127.0.0.1.  
+NOTE: This token will be generated when you run the docker image so it will be different for you. You will need to replace the characters generated after *http://* with *127.0.0.1* .  
 Here is what it looks like:
 http://127.0.0.1:8888/?token=b6ee384b17eb11ad3cabf133aaa052aa2512c6b89c583502
 
