@@ -86,15 +86,15 @@ NOTE: This token will be generated when you run the docker image so it will be d
 Here is what it looks like:
 http://127.0.0.1:8888/?token=b6ee384b17eb11ad3cabf133aaa052aa2512c6b89c583502
 
-If you launch the containers outside of the script, you can still get the URL by issuing the following command:
-
-`docker exec -it jupyterlab  /opt/conda/bin/jupyter server list`
-
 ![Image of url with token](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/url_jupyterlab.png)
 
 To use MongoDB data with Spark, create a new Python Jupyter notebook by navigating to the Jupyter URL and under notebook select Python3:
 
 ![Image of New Python notebook](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/newpythonnotebook.png)
+
+*Ps: If you launch the containers outside of the script, you can still get the URL by issuing the following command:*
+
+`docker exec -it jupyterlab  /opt/conda/bin/jupyter server list`
 
 ---
 ## Execution
