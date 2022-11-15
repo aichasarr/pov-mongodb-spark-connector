@@ -1,6 +1,5 @@
 #! /usr/bin/env bash
 
-set -e
 echo "Starting docker..."
 docker-compose up -d --build
 
