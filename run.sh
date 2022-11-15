@@ -2,6 +2,8 @@
 
 echo "Starting docker..."
 docker-compose up -d --build
+docker exec -it jupyterlab /opt/conda/bin/jupyter server list  
+
 
 function clean_up {
     echo "\n\nShutting down...\n\n"
