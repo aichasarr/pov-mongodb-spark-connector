@@ -70,7 +70,7 @@ __2. Configure Atlas Environment__
 
 __. Getting the environment up and running__
 
-Execute the `run.sh` script file, docker daemon need to be running.
+Execute the `run.sh` script file, docker daemon need to be running. For a first run, it might take up to 15 minutes to complete.
 This runs the docker compose file which deploy a Spark environment with a master node located at port 8080 and two worker nodes listening on ports 8081 and 8082 respectively. The Atlas cluster will be used for both reading data into Spark and writing data from Spark back into Atlas.
 
 Note: You may have to mark the .sh file as runnable with the `chmod` command i.e. `chmod +x run.sh`
@@ -124,8 +124,8 @@ spark = SparkSession.\
         builder.\
         appName("pyspark-notebook").\
         config("spark.executor.memory", "1g").\
-        config("spark.mongodb.read.connection.uri","mongodb+srv://[your_username]:[your_password]@[your_connection_string]").\
-        config("spark.mongodb.write.connection.uri","mongodb+srv://[your_username]:[your_password]@[your_connection_string]").\
+        config("spark.mongodb.read.connection.uri","[your_connection_string]").\
+        config("spark.mongodb.write.connection.uri","[your_connection_string]").\
         config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.5").\
         getOrCreate()
 ```
