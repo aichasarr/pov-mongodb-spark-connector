@@ -108,7 +108,7 @@ In the Atlas console, for the database cluster you deployed, click the Connect b
 
 In the SparkSession variable, for the read and write config parameters, paste the connection string you just copied and fill in your username and password.
 
-To use the Spark Connector, we will use the Maven dependency and set the config parameter to this: 
+To use the Spark Connector, we will use the [Maven dependency](https://search.maven.org/artifact/org.mongodb.spark/mongo-spark-connector/10.0.5/jar) and set the config parameter to this: 
 
 `config("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector:10.0.5")` 
 
