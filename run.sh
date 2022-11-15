@@ -37,6 +37,6 @@ Use <ctrl>-c to quit'''
 read -r -d '' _ </dev/tty
 echo '\n\nTearing down the Docker environment, please wait.\n\n'
 
-dockder-compose down  -v
+dockder-compose down -v
 
 # note: we use a -v to remove the volumes, else you will end up with old data
