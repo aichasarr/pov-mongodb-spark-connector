@@ -106,7 +106,7 @@ Now You can run through the following demo script.  You can copy and execute one
 
 In the Atlas console, for the database cluster you deployed, click the Connect button, select Connect your application, choose Python Driver and copy the Connection String.
 
-In the SparkSession variable, for the read and write config parameters, paste the connection string you just copied and fill in the password field.
+In the SparkSession variable, for the read and write config parameters, paste the connection string you just copied and fill in your username and password.
 
 To use the Spark Connector, we will use the Maven dependency and set the config parameter to this: 
 
