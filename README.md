@@ -256,4 +256,4 @@ This proof should have demonstrated how to use the MongoDB Spark Connector and s
 * Computation of an aggregation pipeline with $lookup and $search operators
 * Computation of SQL against MongoDB Data
 
-This proof shows how easy it is to integrate MongoDB data within your Spark application.  For more information on the Spark Connector check out the [online documentation](https://docs.mongodb.com/spark-connector/master/). The MongoDB Connector for Spark is [open source](https://github.com/mongodb/mongo-spark) under the Apache license, comments/pull requests are encouraged and welcomed.
+This proof shows how easy it is to integrate MongoDB data within your Spark application.  For more information on the Spark Connector check out the [online documentation](https://docs.mongodb.com/spark-connector/master/).
