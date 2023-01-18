@@ -179,7 +179,7 @@ aggPipelineDF.show()
 
 The following query uses these stages:
 
-- $lookup: join customers and accounts collections in the sample_analytics database based on the account ID of the customers and return the matching documents from the accounts collection in an array field named purchases.Use $search stage in the sub-pipeline to search for customer accounts that must have purchased both CurrencyService and InvestmentStock with preference for an order limit between 5000 to 10000.
+- $lookup: join customers and accounts collections in the sample_analytics database based on the account ID of the customers and return the matching documents from the accounts collection in an array field named purchases. Use $search stage in the sub-pipeline to search for customer accounts that must have purchased both CurrencyService and InvestmentStock with preference for an order limit between 5000 to 10000.
 - $limit: stage to limit the output to 5 results.
 - $project: stage to exclude the specified fields in the results.
 
