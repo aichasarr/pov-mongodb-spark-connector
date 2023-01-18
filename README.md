@@ -159,6 +159,11 @@ new_account.write.format("mongodb").mode("append").option("database", "sample_an
 
 ![Image of PySpark4](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark4.png)
 
+You can issue a find request on the newly created account_id to check if it has been well inserted.
+
+![Image of PySpark8](https://github.com/aichasarr/pov-mongodb-spark-connector/blob/main/images/pyspark8.png)
+
+
 * We can also use the power of the MongoDB Aggregation Framework to pre-filter, sort or aggregate our MongoDB data.
 For a simple aggregation pipepile, let's retrieve accounts where account_id equals to 999999
 
