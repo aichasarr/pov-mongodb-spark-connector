@@ -234,7 +234,7 @@ pipeline2 = """[
     }
 ]"""
 
-aggPipelineDF = spark.read.format("mongodb").option("database", "sample_analytics").option("collection", "accounts").option("aggregation.pipeline", pipeline2).load()
+aggPipelineDF = spark.read.format("mongodb").option("database", "sample_analytics").option("collection", "customers").option("aggregation.pipeline", pipeline2).load()
 aggPipelineDF.show()
 ```
 
