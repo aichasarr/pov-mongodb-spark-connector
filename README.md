@@ -7,8 +7,8 @@ The official MongoDB Connector for Apache Spark is developed and supported by Mo
 More on why MongoDB & Spark go hand-in-hand: [MongoDB Connector for Apache Spark](https://www.mongodb.com/products/spark-connector).
 
 __SA Maintainer__: [Aicha Sarr](mailto:aicha.sarr@mongodb.com) <br/>
-__Time to setup__: 60 mins <br/>
-__Time to execute__: 30 mins <br/>
+__Time to setup__: 45 mins <br/>
+__Time to execute__: 20 mins <br/>
 
 ---
 ## Description
