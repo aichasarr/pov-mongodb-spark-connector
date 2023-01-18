@@ -42,7 +42,7 @@ __2. Configure Atlas Environment__
 
 * Log-on to your [Atlas account](http://cloud.mongodb.com/) (using the MongoDB SA preallocated Atlas credits system) and navigate to your SA project
 
-* In the project's Security tab, choose to add a new user called main_user, and for User Privileges specify Atlas admin (make a note of the password you specify)
+* In the project's Security tab, choose to add a new user, and for User Privileges specify Atlas admin (make a note of the password you specify)
 
 * Also in the Security tab, add a new IP Whitelist for your laptop's current IP address
 
