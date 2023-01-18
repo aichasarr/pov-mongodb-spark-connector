@@ -12,7 +12,7 @@ __Time to execute__: 30 mins <br/>
 
 ---
 ## Description
-This proof showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark. We will load financial transactions data into MongoDB, write and read from collections then compute an aggregation pipeline running *$lookup* query with *$search* to find customers from the customers collections whose accounts have purchased both *CurrencyService* and *InvestmentStock* products in the accounts collection.
+This proof showcases how to leverage MongoDB data in your JupyterLab notebooks via the MongoDB Spark Connector and PySpark. We will load financial transactions data into MongoDB, write and read from collections then compute an aggregation pipeline running *$lookup* query with *$search* to find customers from the customers's collection whose accounts have purchased both *CurrencyService* and *InvestmentStock* products in the accounts collection.
 
 This repository has two components:
 - Docker compose file which contains the docker compose file that to spin up the environment
