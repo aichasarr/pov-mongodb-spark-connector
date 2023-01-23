@@ -28,7 +28,7 @@ The Docker file will spin up the following environment:
 The database *sample_analytics* made available is provided with the Atlas sample dataset and contains three collections for a typical financial services application:
 - accounts: contains details on customer accounts.
 - customers: contains details on customers including what accounts they hold.
-- transactions: contains contains transactions details for customers.
+- transactions:  contains transactions details for customers.
 
 
 ----
@@ -46,7 +46,7 @@ __2. Configure Atlas Environment__
 
 * Also in the Security tab, add a new IP Whitelist for your laptop's current IP address
 
-* Create an M10 based 3 node replica-set in an AWS region of your choice, running MongoDB version 6.0 (To run $lookup query with $search, your cluster must run MongoDB v6.0 or higher. It is available on all cluster sizes.)
+* Create an M10 based 3 node replica-set of your choice, running MongoDB version 6.0 (To run $lookup query with $search, your cluster must run MongoDB v6.0 or higher. It is available on all cluster sizes.)
 
 * Once the cluster has been fully provisioned, in the Atlas console, click the ... (ellipsis) for the cluster, select Load Sample Dataset. In the modal dialog, confirm that you want to load the sample dataset by choosing Load Sample Dataset
 
